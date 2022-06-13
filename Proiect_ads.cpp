@@ -10,13 +10,12 @@ using namespace std;
 
 class Node // we implement a class node to store a token and be able to build a tree
 {
-	Node *left; //we have pointers to its left right and parent node (this will help us build the tree)
+	Node *left; //we have pointers to it's left right node(this will help us build the tree)
 	Node *right;
-	Node *parent;
 public:     //we have multiple constructors for different situations 
-	Node  (string token):           caracter(token), left(nullptr), right(nullptr), parent(nullptr) {}
-	Node  ():                       caracter(""), left(nullptr), right(nullptr), parent(nullptr){}
-	Node  (Node *new_node):         caracter(""), left(nullptr), right(nullptr), parent(new_node){}
+	Node  (string token):           caracter(token),  left(nullptr),   right(nullptr)   {}
+	Node  ():                       caracter(""),     left(nullptr),   right(nullptr)   {}
+	Node  (Node *new_node):         caracter(""),     left(nullptr),   right(nullptr)   {}
 	~Node() {}
 	string gettoken()
 	{
@@ -30,10 +29,6 @@ public:     //we have multiple constructors for different situations
 	{
 		return this->right;
 	}
-	Node* getparent()
-	{
-		return parent;
-	}
 	void set_left(Node *new_left)
 	{
 		left = new_left;
@@ -41,10 +36,6 @@ public:     //we have multiple constructors for different situations
 	void set_right(Node *new_right)
 	{
 		right = new_right;
-	}
-	void set_parent(Node *new_parent)
-	{
-		parent = new_parent;
 	}
 	void set_token(string &new_token)
 	{
@@ -68,7 +59,7 @@ public:
 		root = new Node();
 
 		curr = root;//here we set the current nod to the root node
-		while (token.size() != 0)//here we start building the tree 
+		while (token.size() != 0)//here we star building the tree 
 		{
 
 			if (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/')//here we check if it is a operator the we go left on the tree and so on 
@@ -93,8 +84,8 @@ public:
 
 		}
 	}
-	string prs(string &str)//for the parser we just break the string into substrings and cut the string that we take from the initial string
-	{                      //so next time when we call the parser it will take the next substring, and so on.
+	string prs(string &str)//for the parser we just break the string in substrings and cut the string that we take from the inital string.
+	{                      //so next time when we call the parser it will take the next substring and so on.
 		for (int i = 0; i < str.size(); i++)
 		{
 			if (str[i] == ' ')
@@ -138,7 +129,7 @@ public:
 				std::cout << current->gettoken();
 		}
 	}
-	double cal(Node *root)//this is a recursive function that calculates tha value of the nodes
+	double cal(Node *root)//this is a recursiv function that calculates tha value of the nodes
 	{
 		if (root->gettoken()[0] == '+')    return cal(root->getleft()) + cal(root->getright());
 		if (root->gettoken()[0] == '-')    return cal(root->getleft()) - cal(root->getright());
@@ -166,6 +157,6 @@ int main()
     cout <<"Infix notation: ";
 	test.ex_print(test.getroot());
 	cout << "\n";
-    cout<<"Tree value: "
+    cout<<"Tree value: ";
 	cout << test.cal(test.getroot());
 }
